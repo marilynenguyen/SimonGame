@@ -114,8 +114,15 @@ function checkAnswer(currentLevel){
         setTimeout(function(){
             $("body").removeClass("game-over"); 
         }, 200);
-    
-        $("h2").text("Game Over ! (Press any key to restart)"); 
+
+        setTimeout(function(){
+            $("h2").text("You have reached level " + level);  
+        });
+
+        setTimeout(function(){
+            $("h2").text("Game Over ! (Press any key to restart)"); 
+        }, 3000); 
+          
         startOver(); 
 
     }
