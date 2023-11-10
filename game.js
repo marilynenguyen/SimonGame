@@ -9,22 +9,21 @@ var started = false;
 
 //Start the game 
 $(document).keydown(function(){
-    if(!started){
-        nextSequence(); 
-        started = true; 
+    if (!started) {
+        level = 0; 
+        $("#level-title").text("Level " + level);
+        nextSequence();
+        started = true;
     }
 }); 
 
 //Game Sequence 
 //Function to generate a gamePattern array 
 function nextSequence(){
-    if(started==false){
-        level = 0; 
-    }
-    else{
-        level++;
-        $("#level-title").text("Level  " + level); 
-    }  
+
+    level++;
+    $("#level-title").text("Level  " + level); 
+    
     var randomNum = Math.random()*4; 
     randomNum = Math.floor(randomNum); 
 
@@ -119,13 +118,16 @@ function checkAnswer(currentLevel){
         setTimeout(function(){
             $("body").removeClass("game-over"); 
         }, 200);
-       
-        setTimeout(function(){
+       console.log("Here" + level);
+        
+       setTimeout(function(){
+            console.log(level);
             if(isNaN(level)|| level==0){
                 $("#level-title").text("Try again!"); 
-            }
-            else{
                 console.log(level); // Add this line for debugging
+            }
+            
+            else {
                 $("#level-title").text("You have reached level " + (level));  
             }  
         });
@@ -133,27 +135,26 @@ function checkAnswer(currentLevel){
         setTimeout(function(){
             $("#level-title").text("Game Over ! (Press any key to restart)"); 
         }, 3000); 
-
-
-    if(isNaN(level)||level == 0){
-        $("#score").text("Score: " + 0);
-      }
-    
-    else if(levelplayer >= level || levelplayer == 0){
-        levelplayer = level; 
-        $("#score").text("Best Score: " + (level-1));
-    }
-
+         
+        startOver();    
     }
 }
 
 //Start over 
 function startOver(){
 
+    if(isNaN(level)||level == 0){
+        $("#score").text("Score: " + 0);
+    }
+    
+    else if(levelplayer <= level || levelplayer == 0){
+        levelplayer = level; 
+        $("#score").text("Best Score: " + (level-1));
+    }
+    
     gamePattern = [];  
     userClickedPattern = []; 
     started = false; 
-    
 }
 
 
